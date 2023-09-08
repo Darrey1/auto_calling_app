@@ -1,0 +1,153 @@
+{% extends 'base.html' %} 
+{% load static%}
+{% block content%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+	  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <!-- Style -->
+    <title>contact list</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .table-container {
+            margin: 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #007BFF;
+            font-size: 16px;
+            color: #007BFF;
+            outline: none;
+        }
+
+        .add-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CONTACTS LIST</h1>
+            <form action="/" method="GET" class="search-bar" id='search-form'>
+              <div class="input-group-append">
+                <input type="text" class="search-bar"  name="search-area" placeholder="Search..." value={{search_input}}>
+               
+                <button class="btn btn-secondary" type="button">
+                <i class="fa fa-search" onclick="document.getElementById('search-form').submit();"></i>
+                </button>
+              </div>
+          <!-- <i onclick="document.getElementById('search-form').submit();" style="color:black"
+            class="fas fa-search"></i> -->
+          </form>  
+        </div>
+        <div class="table-container">
+          <button class="add-button"><a href="{% url 'add-contact'  %}" style="color:black;"><i class="fas fa-plus-circle add"></i></a></button>
+            <table>
+                <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Contact</th>
+                      <th scope="col">Customer Relationship</th>
+                      <th scope="col">email Address</th>
+                      <th scope="col">Customer location</th>
+                      <th scope="col">Call Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for contact in contacts reversed %}
+                  <tr>
+      
+                    
+                            
+                            <td>
+                              {{forloop.counter}}
+                            </td>
+                            
+                            <td>{{ contact.full_name | title }}</td>
+                            <td>{{ contact.phone_number }}</td>
+                            <td>
+                              {{ contact.relationship | title }}
+                              <small class="d-block">2 minutes ago</small>
+                            </td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.address }}</td>
+                            <a href="">
+                            <td><a href="{% url 'calling' contact.id %}" id="call" class="list__item">
+                              <h3><i class="fas fa-phone"></i></a>
+                              <a href="#" style="color:green"><i class="fas fa-sms text"></i></a>
+                              <a href="{% url 'delete' contact.id %}" style="color:red"> <i class="fas fa-trash icon-gradient" ></i></a></h3>
+                            </td>
+      
+                  
+                            </tr>
+                            {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+{% endblock content%}
