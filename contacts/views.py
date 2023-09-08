@@ -62,9 +62,9 @@ def call(request, pk):
     contact = contacts.phone_number
     name = contacts.full_name
     name = str(name).upper()
-    caller_number = "+18705874111"
-    twilio_acc = "AC09bd28fc542fe7cb5a73ad09ca60f83d"
-    auth_token = "26df52b7e2f4fde96a0810b1a0df3533"
+    caller_number = "replace it with your twilio verify number"
+    twilio_acc = "replace it with your twilio account"
+    auth_token = "replace it with your twilio token"
     client = Client(twilio_acc,auth_token)
     call = client.calls.create(
         url= 'http://demo.twilio.com/docs/voice.xml',
